@@ -19,7 +19,11 @@ impl Plugin for TowerPlugin {
 #[derive(Component)]
 pub struct Tower {
     pub fire_timer: Timer,
+    pub on_target: bool,
 }
+
+#[derive(Component)]
+struct TowerBase;
 
 #[derive(Component)]
 pub struct Bullet {
@@ -39,15 +43,26 @@ fn tower_spawn (
         if let Ok(player_transform) = query.single() {
             let player_pos = player_transform.translation;
 
+
             commands.spawn((
                 Sprite {
-                    image: asset_server.load("tower.png"),
+                    image: asset_server.load("tower_base.png"),
+                    custom_size: Some(Vec2::new(48.0, 48.0)), 
+                    ..default()
+                },
+                Transform::from_translation(player_pos.with_z(0.0)),
+            ));
+
+            commands.spawn((
+                Sprite {
+                    image: asset_server.load("tower_cannon.png"),
                     custom_size: Some(Vec2::new(48.0, 48.0)),
                     ..default()
                 },
-                Transform::from_translation(player_pos),
+                Transform::from_translation(player_pos.with_z(1.0)),
                 Tower {
-                    fire_timer: Timer::from_seconds(0.5, TimerMode::Repeating)
+                    fire_timer: Timer::from_seconds(0.5, TimerMode::Repeating),
+                    on_target: false,
                 },
             ));
         }
@@ -55,10 +70,13 @@ fn tower_spawn (
 }
 
 fn tower_rotate (
-    mut tower_query: Query<&mut Transform, (With<Tower>, Without<Enemy>)>,
+    time: Res<Time>,
+    mut tower_query: Query<(&mut Transform, &mut Tower), (With<Tower>, Without<Enemy>)>,
     enemy_query: Query< &Transform, With<Enemy>>
 ) {
-   for mut tower_transform in &mut tower_query {
+    let rotation_speed = std::f32::consts::PI;
+
+   for (mut tower_transform, mut tower)in &mut tower_query {
     let tower_pos = tower_transform.translation.xy();
 
     let mut closest_target: Option<Vec2> = None;
@@ -80,9 +98,23 @@ fn tower_rotate (
 
         let rotation = Quat::from_rotation_arc(Vec3::Y, direction.extend(0.0));
 
-        tower_transform.rotation = rotation;
 
+
+        let angle_to_target = tower_transform.rotation.angle_between(rotation);
+
+        if angle_to_target > 0.05 {
+            tower.on_target = false;
+            let max_rotation = rotation_speed * time.delta_secs();
+
+            let interpolation = (max_rotation / angle_to_target).min(1.0);
+
+            tower_transform.rotation = tower_transform.rotation.slerp(rotation, interpolation);
+        }
+        else {
+            tower.on_target = true;
+        }
     }
+    
    }  
 
 }
@@ -96,7 +128,7 @@ fn tower_shoot (
     for (transform, mut tower) in &mut tower_query {
         tower.fire_timer.tick(time.delta());
 
-        if tower.fire_timer.just_finished() {
+        if tower.fire_timer.just_finished() && tower.on_target {
             commands.spawn((
                 Sprite::from_image(asset_server.load("bullet.png")),
                 Transform {

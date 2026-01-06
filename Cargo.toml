@@ -8,7 +8,7 @@ version = "0.17.3"
 features = [
     "bevy_log", # Logging to console
     "std",      # Use the Rust standard library (important!)
-    "dynamic_linking",
+    "dynamic_linking", # DEV USAGE ONLY, REMOVE FOR RELEASE
 ]
 
 [dependencies]
