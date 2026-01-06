@@ -32,7 +32,7 @@ fn move_player(
     keyboard_input: Res<ButtonInput<KeyCode>>,
     mut query: Query<&mut Transform, With<Player>>,
 ) {
-    let speed = 200.0;
+    let speed = 500.0;
     for mut transform in &mut query {
         let mut direction = Vec3::ZERO;
 
