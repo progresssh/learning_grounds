@@ -15,7 +15,7 @@ pub struct CameraPlugin;
 impl Plugin for CameraPlugin {
     fn build(&self, app: &mut App) {
         app.insert_resource(CameraSettings {
-            viewport_height: 1000.,
+            viewport_height: 25.,
             zoom_range: 0.1..10.0,
             zoom_speed: 0.2,
         })
@@ -32,10 +32,10 @@ fn setup_camera(mut commands: Commands, camera_settings: Res<CameraSettings>) {
         Camera2d::default(),
         Projection::from(OrthographicProjection {
             scaling_mode: ScalingMode::FixedVertical { viewport_height: camera_settings.viewport_height },
-            scale: 1.,
+            scale: 0.5,
             ..OrthographicProjection::default_2d()
         }),
-        Transform::from_xyz(0.0, 0.0, 0.0)
+        Transform::from_xyz(1280.0 / 4.0, 720.0 / 4.0, 0.0)
     ));
 }
 

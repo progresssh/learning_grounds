@@ -1,16 +1,19 @@
 use bevy::diagnostic::{FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin};
 use bevy::prelude::*;
+use bevy_ecs_ldtk::prelude::*;
 
 mod camera;
 mod enemy;
 mod player;
 mod tower;
 mod utils;
+mod world;
 use bevy::window::PresentMode;
 use camera::CameraPlugin;
 use enemy::EnemyPlugin;
 use player::PlayerPlugin;
 use tower::TowerPlugin;
+use world::WorldPlugin;
 
 fn main() {
     App::new()
@@ -25,7 +28,8 @@ fn main() {
                 })
                 .set(ImagePlugin::default_nearest()),
         )
-        .add_plugins((PlayerPlugin, EnemyPlugin, TowerPlugin, CameraPlugin))
+        .add_plugins(LdtkPlugin)
+        .add_plugins((PlayerPlugin, EnemyPlugin, TowerPlugin, CameraPlugin, WorldPlugin))
         .add_plugins(FrameTimeDiagnosticsPlugin::default())
         .add_plugins(LogDiagnosticsPlugin::default())
         .run();
