@@ -16,7 +16,7 @@ impl Plugin for CameraPlugin {
     fn build(&self, app: &mut App) {
         app.insert_resource(CameraSettings {
             viewport_height: 25.,
-            zoom_range: 0.1..10.0,
+            zoom_range: 0.1..100.0,
             zoom_speed: 0.2,
         })
             .add_systems(Startup, setup_camera)
