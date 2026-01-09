@@ -11,7 +11,7 @@
 	"iid": "d56e9f10-d380-11f0-9a8c-eb584b0bb1d6",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 19,
+	"nextUid": 20,
 	"identifierStyle": "Capitalize",
 	"toc": [],
 	"worldLayout": "LinearHorizontal",
@@ -483,6 +483,41 @@
 			"pivotX": 0,
 			"pivotY": 0,
 			"fieldDefs": []
+		},
+		{
+			"identifier": "Hole",
+			"uid": 19,
+			"tags": [],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 4,
+			"height": 4,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#D77643",
+			"renderMode": "Ellipse",
+			"showName": true,
+			"tilesetId": null,
+			"tileRenderMode": "FitInside",
+			"tileRect": null,
+			"uiTileRect": { "tilesetUid": 4, "x": 24, "y": 24, "w": 8, "h": 8 },
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": []
 		}
 	], "tilesets": [
 		{
@@ -607,6 +642,20 @@
 							"height": 16,
 							"defUid": 17,
 							"px": [112,144],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Hole",
+							"__grid": [8,5],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#D77643",
+							"iid": "0c97afc0-d380-11f0-b496-9b40fbbaf4f6",
+							"width": 4,
+							"height": 4,
+							"defUid": 19,
+							"px": [128,80],
 							"fieldInstances": []
 						}
 					]

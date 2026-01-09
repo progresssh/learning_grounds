@@ -114,6 +114,7 @@ fn spawn_terrain_chunks(
     }
 }
 
+// TODO: Position based despawn and serializing 
 fn despawn_terrain_chunks(
     loaded_chunks: Res<LoadedChunks>,
     chunks_query: Query<(Entity, &TerrainChunk)>,

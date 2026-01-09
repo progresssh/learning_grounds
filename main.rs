@@ -8,12 +8,15 @@ mod player;
 mod tower;
 mod utils;
 mod world;
+mod sound;
+
 use bevy::window::PresentMode;
 use camera::CameraPlugin;
 use enemy::EnemyPlugin;
 use player::PlayerPlugin;
 use tower::TowerPlugin;
 use world::WorldPlugin;
+use sound::SoundPlugin;
 
 fn main() {
     App::new()
@@ -29,8 +32,8 @@ fn main() {
                 .set(ImagePlugin::default_nearest()),
         )
         .add_plugins(LdtkPlugin)
-        .add_plugins((PlayerPlugin, EnemyPlugin, TowerPlugin, CameraPlugin, WorldPlugin))
-        .add_plugins(FrameTimeDiagnosticsPlugin::default())
-        .add_plugins(LogDiagnosticsPlugin::default())
+        .add_plugins((PlayerPlugin, EnemyPlugin, TowerPlugin, CameraPlugin, WorldPlugin, SoundPlugin))
+        //.add_plugins(FrameTimeDiagnosticsPlugin::default())
+        //.add_plugins(LogDiagnosticsPlugin::default())
         .run();
 }
